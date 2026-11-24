@@ -1,12 +1,12 @@
-# Java Sales Application
+# Java Sales Microservices
 
-The project is separated into independent frontend and backend folders.
+Spring Boot 4 implementation of the sales application.
 
-- `frontend/`: React 19 + TypeScript + Vite storefront, customer checkout, and management UI
-- `backend/user-service/`: Spring Boot 4 user microservice
-- `backend/products/`: Spring Boot product and inventory microservice
-- `backend/order-service/`: Spring Boot order microservice with its own persistence and inventory-service client
-- `backend/module-explorer/`: React app with a simple endpoint list and draggable, plain-language flow trees
+- `backend/user-service/`: User microservice
+- `backend/products/`: Product catalog and inventory microservice
+- `backend/order-service/`: Order microservice and inventory client
+
+The services target Java 21 and use PostgreSQL with Spring Data JPA.
 
 ## Run
 
@@ -52,14 +52,23 @@ cd backend\order-service
 
 The order API runs at `http://localhost:8083/api/v1/orders` and persists orders in its own `sales_order_db` database. It coordinates inventory over the products service API; it stores the user-service ID as an external `user_id` reference, not a cross-service database foreign key. Pending requests can be retried with the same `Idempotency-Key` header. Payment processing is not included.
 
-Open the local URL printed by Vite to browse the backend service catalog.
+## Build and test
 
-### Frontend
+From this directory:
 
 ```powershell
-cd frontend
+.\mvnw.cmd test
+.\mvnw.cmd package
+```
+
+## Frontend
+
+The shared React frontend is outside this directory:
+
+```powershell
+cd ..\frontend
 npm install
 npm run dev
 ```
 
-The frontend runs at `http://localhost:5173` and proxies user requests to port 8081, product requests to port 8082, and order requests to port 8083.
+It runs at `http://localhost:5173` and proxies user requests to port 8081, product requests to port 8082, and order requests to port 8083.

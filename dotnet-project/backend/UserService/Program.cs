@@ -24,11 +24,14 @@ public class UserDbContext(DbContextOptions<UserDbContext> options) : DbContext(
     {
         modelBuilder.Entity<UserEntity>(e => {
             e.ToTable("users"); e.HasKey(x => x.Id);
-            e.Property(x => x.Name).HasMaxLength(100).IsRequired();
-            e.Property(x => x.Email).IsRequired();
+            e.Property(x => x.Id).HasColumnName("id");
+            e.Property(x => x.Name).HasColumnName("name").HasMaxLength(100).IsRequired();
+            e.Property(x => x.Email).HasColumnName("email").IsRequired();
             e.HasIndex(x => x.Email).IsUnique();
-            e.Property(x => x.Role).HasConversion<string>().HasMaxLength(20);
-            e.Property(x => x.Status).HasConversion<string>().HasMaxLength(20);
+            e.Property(x => x.Role).HasColumnName("role").HasConversion<string>().HasMaxLength(20);
+            e.Property(x => x.Status).HasColumnName("status").HasConversion<string>().HasMaxLength(20);
+            e.Property(x => x.CreatedAt).HasColumnName("created_at");
+            e.Property(x => x.UpdatedAt).HasColumnName("updated_at");
         });
     }
 }

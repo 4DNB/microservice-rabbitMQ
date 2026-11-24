@@ -1,0 +1,19 @@
+# Build outputs
+**/bin/
+**/obj/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Test results
+**/TestResults/
+
+# NuGet
+*.nupkg
+*.snupkg
+
+# Local settings and logs
+appsettings.*.local.json
+*.log

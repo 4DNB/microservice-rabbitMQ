@@ -6,6 +6,8 @@ ASP.NET Core 9 implementation of the sales application. It provides the same thr
 - `backend/ProductsService`: products and inventory on port 8082
 - `backend/OrderService`: orders on port 8083
 
+Each service has its API project at the service-folder root, with `Application`, `Domain`, and `Infrastructure` projects in subfolders. Application depends on Domain; Infrastructure implements Application's persistence and integration interfaces. The API host references these layers as the composition root.
+
 ## Prerequisites
 
 - .NET 9 SDK
